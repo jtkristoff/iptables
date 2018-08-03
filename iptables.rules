@@ -1,0 +1,50 @@
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# loopback 
+-A INPUT -i lo -j ACCEPT
+
+# TCP ingress
+-A INPUT -p tcp --dport 22 -j ACCEPT
+-A INPUT -p tcp --dport 0:1023 -j DROP
+
+# UDP ingress
+-A INPUT -p udp --sport 123 -m state --state ESTABLISHED -j ACCEPT
+-A INPUT -p udp --dport 0:1023 -j DROP
+
+# ICMP ingress
+-A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+-A INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT
+-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+-A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT
+-A INPUT -p icmp --icmp-type parameter-problem -j ACCEPT
+-A INPUT -p icmp -j DROP
+
+# default ingress
+-A INPUT -j ACCEPT
+
+# loopback
+-A OUTPUT -s 127.0.0.0/255.0.0.0 -d 127.0.0.0/255.0.0.0 -j ACCEPT
+
+# TCP egress
+-A OUTPUT -p tcp --sport 22 -j ACCEPT
+-A OUTPUT -p tcp --sport 0:1023 -j DROP
+
+# UDP egress
+-A OUTPUT -p udp --dport 123 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -p udp --sport 0:1023 -j DROP
+
+# ICMP egress
+-A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
+-A OUTPUT -p icmp --icmp-type destination-unreachable -j ACCEPT
+-A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+-A OUTPUT -p icmp --icmp-type time-exceeded -j ACCEPT
+-A OUTPUT -p icmp --icmp-type parameter-problem -j ACCEPT
+-A OUTPUT -p icmp -j DROP
+
+# default egress
+-A OUTPUT -j ACCEPT
+
+COMMIT
