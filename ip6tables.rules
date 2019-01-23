@@ -15,15 +15,15 @@
 -A INPUT -p udp --dport 0:1023 -j DROP
 
 # ICMP ingress
--A INPUT -p icmpv6 --icmpv6-type destination-unreachable -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type packet-too-big -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type parameter-problem -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type echo-reply -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type router-advertisement -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type neighbor-solicitation -j ACCEPT
--A INPUT -p icmpv6 --icmpv6-type neighbor-advertisement -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type destination-unreachable -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type packet-too-big -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type parameter-problem -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type echo-request -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type echo-reply -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type router-advertisement -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type neighbor-solicitation -j ACCEPT
+-A INPUT -m icmpv6 -p icmpv6 --icmpv6-type neighbor-advertisement -j ACCEPT
 -A INPUT -p icmpv6 -j DROP
 
 # default ingress
@@ -42,15 +42,15 @@
 -A OUTPUT -p udp --sport 0:1023 -j DROP
 
 # ICMP egress
--A OUTPUT -p icmpv6 --icmpv6-type destination-unreachable -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type packet-too-big -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type parameter-problem -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type echo-request -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type echo-reply -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type router-solicitation -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type neighbor-solicitation -j ACCEPT
--A OUTPUT -p icmpv6 --icmpv6-type neighbor-advertisement -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type destination-unreachable -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type packet-too-big -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type time-exceeded -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type parameter-problem -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type echo-request -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type echo-reply -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type router-solicitation -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type neighbor-solicitation -j ACCEPT
+-A OUTPUT -m icmpv6 -p icmpv6 --icmpv6-type neighbor-advertisement -j ACCEPT
 -A OUTPUT -p icmpv6 -j DROP
 
 # default egress
